@@ -9,7 +9,6 @@ use std::pin::pin;
 use std::sync::Arc;
 use std::task::{Context, Poll, Wake, Waker};
 use std::thread::{self, Thread};
-use std::time::Duration;
 
 use thunderstrike::{code, hash_shard, Client, Config, RetryClass};
 
@@ -107,7 +106,7 @@ fn round_trips() {
 }
 
 #[test]
-fn batches_and_ttl() {
+fn batches() {
     let db = need_server!();
     let keys: Vec<Vec<u8>> = (0..64).map(|i| format!("rs:batch:{i}").into_bytes()).collect();
     let pairs: Vec<(&[u8], Vec<u8>)> = keys.iter().map(|k| (&k[..], [k.as_slice(), b"=v"].concat())).collect();
@@ -119,10 +118,6 @@ fn batches_and_ttl() {
     assert!(db.mdelete(&keys).unwrap().into_iter().all(|d| d));
     assert!(db.mdelete(&keys).unwrap().into_iter().all(|d| !d));
     assert_eq!(db.mget::<&[u8]>(&[]).unwrap(), Vec::<Option<Vec<u8>>>::new());
-
-    db.set_ttl(b"rs:ttl", b"x", Duration::from_secs(30)).unwrap();
-    assert_eq!(db.get(b"rs:ttl").unwrap().as_deref(), Some(&b"x"[..]));
-    db.delete(b"rs:ttl").unwrap();
 }
 
 // The server refuses an empty value: permanent, not retriable.

@@ -180,9 +180,9 @@ internal static class NativeMethods
         byte[] dst, UIntPtr dstCap, out UIntPtr outLen);
 
     [DllImport(Lib, CallingConvention = Cdecl)]
-    internal static extern int thunderstrike_set_ttl(
+    internal static extern int thunderstrike_set(
         IntPtr client, byte[] key, UIntPtr keyLen,
-        byte[] value, UIntPtr valueLen, uint ttlMs);
+        byte[] value, UIntPtr valueLen);
 
     [DllImport(Lib, CallingConvention = Cdecl)]
     internal static extern int thunderstrike_delete(IntPtr client, byte[] key, UIntPtr keyLen);

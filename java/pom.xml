@@ -5,7 +5,9 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>dev.thunderstrike</groupId>
+  <!-- Maven Central namespace, verified through the publisher's GitHub
+       account. Permanent for this artifact. -->
+  <groupId>io.github.maverick-ai</groupId>
   <artifactId>thunderstrike-client</artifactId>
   <!-- From the tag: scripts/package-java.sh passes -Drevision=X.Y.Z. -->
   <version>${revision}</version>
@@ -27,6 +29,15 @@
     <name>SHORTSQUEEZE PRIVATE LIMITED</name>
     <url>https://github.com/TheManhattanProject</url>
   </organization>
+
+  <!-- Central requires at least one developer entry. -->
+  <developers>
+    <developer>
+      <name>SHORTSQUEEZE PRIVATE LIMITED</name>
+      <organization>SHORTSQUEEZE PRIVATE LIMITED</organization>
+      <organizationUrl>https://github.com/TheManhattanProject</organizationUrl>
+    </developer>
+  </developers>
 
   <scm>
     <url>https://github.com/TheManhattanProject/thunderstrike-client</url>
@@ -56,6 +67,73 @@
       </resource>
     </resources>
   </build>
+
+  <!-- `-P central`: what Maven Central requires on top of the jar:
+       sources and javadoc jars, a GPG signature on every file, a pom with
+       ${revision} resolved, plus the Central Portal upload itself
+       (credentials: server id `central` in ~/.m2/settings.xml).
+       scripts/package-java.sh (deploy mode) runs it. -->
+  <profiles>
+    <profile>
+      <id>central</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>flatten-maven-plugin</artifactId>
+            <version>1.7.0</version>
+            <configuration>
+              <flattenMode>resolveCiFriendliesOnly</flattenMode>
+              <updatePomFile>true</updatePomFile>
+            </configuration>
+            <executions>
+              <execution><id>flatten</id><phase>process-resources</phase><goals><goal>flatten</goal></goals></execution>
+              <execution><id>clean</id><phase>clean</phase><goals><goal>clean</goal></goals></execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.3.1</version>
+            <executions>
+              <execution><id>sources</id><goals><goal>jar-no-fork</goal></goals></execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.11.2</version>
+            <configuration>
+              <doclint>none</doclint>
+              <quiet>true</quiet>
+            </configuration>
+            <executions>
+              <execution><id>javadoc</id><goals><goal>jar</goal></goals></execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.7</version>
+            <executions>
+              <execution><id>sign</id><phase>verify</phase><goals><goal>sign</goal></goals></execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.8.0</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>true</autoPublish>
+              <waitUntil>validated</waitUntil>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <!-- No dependencies. That is the point of Panama: the binding is
        plain Java calling the C ABI, with no JNI glue and nothing to

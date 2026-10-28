@@ -10,7 +10,7 @@ At run time there is nothing to install: ship the one file.
 ## Install
 
 ```sh
-go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.1
+go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.2
 ```
 
 ```go
@@ -83,8 +83,8 @@ requires client certificates (mTLS), set `TLSClientCertPem` and
 ## Operations
 
 Keys and values are `[]byte`. A key is at most 65,535 bytes
-(`thunderstrike.MaxKeyLen`); an empty value is refused (`CodeMalformed`). Keys do not expire: the server does not support
-expiry, and refuses `SetTTL` with a non-zero TTL as malformed.
+(`thunderstrike.MaxKeyLen`); an empty value is refused (`CodeMalformed`).
+Keys do not expire: a value stays until it is deleted or overwritten.
 
 ```go
 err := db.Set(k, v)

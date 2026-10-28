@@ -537,10 +537,10 @@ public:
         return len;
     }
 
-    /// Write a key. `ttl_ms` is a hint carried in the request header.
-    void set(std::string_view key, std::string_view value, std::uint32_t ttl_ms = 0) const {
-        detail::check(thunderstrike_set_ttl(handle(), detail::bytes(key), key.size(),
-                                      detail::bytes(value), value.size(), ttl_ms),
+    /// Write a key.
+    void set(std::string_view key, std::string_view value) const {
+        detail::check(thunderstrike_set(handle(), detail::bytes(key), key.size(),
+                                  detail::bytes(value), value.size()),
                       "set");
     }
 

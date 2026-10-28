@@ -171,7 +171,6 @@ export declare class ThunderstrikeClient {
   getString(key: string): Promise<string | null>;
 
   set(key: Buffer, value: Buffer): Promise<void>;
-  setWithTtl(key: Buffer, value: Buffer, ttlMs: number): Promise<void>;
   setString(key: string, value: string): Promise<void>;
 
   /** Resolves `false` if the key was not there. */

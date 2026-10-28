@@ -544,18 +544,13 @@ func (c *Client) Get(key []byte) ([]byte, bool, error) {
 
 // Set writes a key.
 func (c *Client) Set(key, value []byte) error {
-	return c.SetTTL(key, value, 0)
-}
-
-// SetTTL writes a key with a ttl_ms hint in the request header.
-func (c *Client) SetTTL(key, value []byte, ttlMS uint32) error {
 	h, err := c.handle()
 	if err != nil {
 		return err
 	}
 	kp, kl, kpin := bytesArg(key)
 	vp, vl, vpin := bytesArg(value)
-	rc := C.thunderstrike_set_ttl(h, kp, kl, vp, vl, C.uint32_t(ttlMS))
+	rc := C.thunderstrike_set(h, kp, kl, vp, vl)
 	runtime.KeepAlive(kpin)
 	runtime.KeepAlive(vpin)
 	return check(rc, "Set")

@@ -435,11 +435,6 @@ public final class ThunderstrikeClient implements AutoCloseable {
 
     /** Write a key. */
     public void set(byte[] key, byte[] value) {
-        set(key, value, 0);
-    }
-
-    /** Write a key with a {@code ttlMs} hint in the request header. */
-    public void set(byte[] key, byte[] value, int ttlMs) {
         checkKey(key);
         if (value == null) {
             throw new IllegalArgumentException("value must not be null");
@@ -449,8 +444,8 @@ public final class ThunderstrikeClient implements AutoCloseable {
             MemorySegment k = sc.key(key);
             MemorySegment v = sc.value(value);
             ThunderstrikeException.check(
-                    (int) Native.SET_TTL.invokeExact(
-                            handle(), k, (long) key.length, v, (long) value.length, ttlMs),
+                    (int) Native.SET.invokeExact(
+                            handle(), k, (long) key.length, v, (long) value.length),
                     "set");
         } catch (ThunderstrikeException e) {
             throw e;

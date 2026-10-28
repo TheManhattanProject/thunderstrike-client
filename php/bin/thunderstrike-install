@@ -35,17 +35,29 @@ function fetch(string $url): string
     // curl when present: it follows GitHub's redirect to the asset host
     // and reports HTTP errors as errors. Streams otherwise.
     if (extension_loaded('curl') && !str_starts_with($url, 'file://')) {
-        $ch = curl_init($url);
-        curl_setopt_array($ch, [
+        $opts = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_FAILONERROR => true,
             CURLOPT_CONNECTTIMEOUT => 30,
             CURLOPT_USERAGENT => 'thunderstrike-install',
-        ]);
+        ];
+        $ch = curl_init($url);
+        curl_setopt_array($ch, $opts);
         $body = curl_exec($ch);
+        // Windows PHP builds commonly ship without a CA bundle (no
+        // curl.cainfo), so verification fails before any byte arrives.
+        // Retry against the OS certificate store; verification stays on.
+        if (!is_string($body) && curl_errno($ch) === CURLE_SSL_CACERT && defined('CURLSSLOPT_NATIVE_CA')) {
+            $ch = curl_init($url);
+            curl_setopt_array($ch, $opts + [CURLOPT_SSL_OPTIONS => CURLSSLOPT_NATIVE_CA]);
+            $body = curl_exec($ch);
+        }
         if (!is_string($body)) {
-            fail("download failed: {$url}: " . curl_error($ch));
+            fail("download failed: {$url}: " . curl_error($ch)
+                . (curl_errno($ch) === CURLE_SSL_CACERT
+                    ? "\n  PHP has no CA certificates: set curl.cainfo in php.ini to a CA bundle (https://curl.se/ca/cacert.pem)."
+                    : ''));
         }
 
         return $body;

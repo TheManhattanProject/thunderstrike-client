@@ -437,12 +437,6 @@ int32_t thunderstrike_set(thunderstrike_client *client,
                     const uint8_t *key, size_t key_len,
                     const uint8_t *value, size_t value_len);
 
-/* As thunderstrike_set, with a ttl_ms hint in the request header. */
-int32_t thunderstrike_set_ttl(thunderstrike_client *client,
-                        const uint8_t *key, size_t key_len,
-                        const uint8_t *value, size_t value_len,
-                        uint32_t ttl_ms);
-
 /* THUNDERSTRIKE_OK removed it; THUNDERSTRIKE_NOT_FOUND means it was not there. */
 int32_t thunderstrike_delete(thunderstrike_client *client,
                        const uint8_t *key, size_t key_len);

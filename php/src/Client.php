@@ -145,18 +145,17 @@ final class Client
         }
     }
 
-    /** Write a key. `$ttlMs` is a hint carried in the request header. */
-    public function set(string $key, string $value, int $ttlMs = 0): void
+    /** Write a key. */
+    public function set(string $key, string $value): void
     {
         $this->checkKey($key);
         ThunderstrikeException::check(
-            $this->ffi->thunderstrike_set_ttl(
+            $this->ffi->thunderstrike_set(
                 $this->handle(),
                 $key,
                 \strlen($key),
                 $value,
                 \strlen($value),
-                $ttlMs,
             ),
             'set',
         );

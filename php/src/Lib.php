@@ -94,7 +94,7 @@ final class Lib
 
         int32_t thunderstrike_get(void *client, const char *key, size_t key_len, thunderstrike_buf *out);
         int32_t thunderstrike_get_into(void *client, const char *key, size_t key_len, uint8_t *dst, size_t dst_cap, size_t *out_len);
-        int32_t thunderstrike_set_ttl(void *client, const char *key, size_t key_len, const char *value, size_t value_len, uint32_t ttl_ms);
+        int32_t thunderstrike_set(void *client, const char *key, size_t key_len, const char *value, size_t value_len);
         int32_t thunderstrike_delete(void *client, const char *key, size_t key_len);
         int32_t thunderstrike_exists(void *client, const char *key, size_t key_len);
         int32_t thunderstrike_append(void *client, const char *key, size_t key_len, const char *value, size_t value_len, uint64_t *out_total);

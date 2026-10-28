@@ -301,14 +301,13 @@ public sealed class ThunderstrikeClient : IDisposable
     /// <summary>Write a key.</summary>
     /// <param name="key">The key to write.</param>
     /// <param name="value">The value to store.</param>
-    /// <param name="ttlMs">A hint carried in the request header.</param>
-    public void Set(byte[] key, byte[] value, uint ttlMs = 0)
+    public void Set(byte[] key, byte[] value)
     {
         CheckKey(key);
         if (value is null) throw new ArgumentNullException(nameof(value));
         ThunderstrikeException.ThrowIfError(
-            NativeMethods.thunderstrike_set_ttl(
-                Handle, key, (UIntPtr)key.Length, value, (UIntPtr)value.Length, ttlMs),
+            NativeMethods.thunderstrike_set(
+                Handle, key, (UIntPtr)key.Length, value, (UIntPtr)value.Length),
             "Set");
     }
 

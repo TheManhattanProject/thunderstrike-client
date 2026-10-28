@@ -358,7 +358,6 @@ def _declare(lib: ctypes.CDLL) -> None:
         ("thunderstrike_get", [c_void_p, _U8P, c_size_t, POINTER(_Buf)], c_int32),
         ("thunderstrike_get_into", [c_void_p, _U8P, c_size_t, _U8P, c_size_t, _SIZEP], c_int32),
         ("thunderstrike_set", [c_void_p, _U8P, c_size_t, _U8P, c_size_t], c_int32),
-        ("thunderstrike_set_ttl", [c_void_p, _U8P, c_size_t, _U8P, c_size_t, c_uint32], c_int32),
         ("thunderstrike_delete", [c_void_p, _U8P, c_size_t], c_int32),
         ("thunderstrike_exists", [c_void_p, _U8P, c_size_t], c_int32),
         ("thunderstrike_append", [c_void_p, _U8P, c_size_t, _U8P, c_size_t, POINTER(c_uint64)], c_int32),
@@ -701,9 +700,9 @@ class Thunderstrike:
             raise NotFound(NOT_FOUND, context="get")
         return v
 
-    def set(self, key: bytes, value: bytes, ttl_ms: int = 0) -> None:
-        rc = self._lib.thunderstrike_set_ttl(
-            self._h(), _as_u8p(key), len(key), _as_u8p(value), len(value), ttl_ms
+    def set(self, key: bytes, value: bytes) -> None:
+        rc = self._lib.thunderstrike_set(
+            self._h(), _as_u8p(key), len(key), _as_u8p(value), len(value)
         )
         self._check(rc, "set")
 

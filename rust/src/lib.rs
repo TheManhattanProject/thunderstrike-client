@@ -680,15 +680,6 @@ impl Client {
         check(unsafe { sys::thunderstrike_set(self.h(), key.as_ptr(), key.len(), value.as_ptr(), value.len()) })
     }
 
-    /// Write a key with a time-to-live hint (millisecond resolution).
-    pub fn set_ttl(&self, key: &[u8], value: &[u8], ttl: Duration) -> Result<()> {
-        let ttl = u32::try_from(ms(ttl)).unwrap_or(u32::MAX);
-        // SAFETY: live handle; key and value readable.
-        check(unsafe {
-            sys::thunderstrike_set_ttl(self.h(), key.as_ptr(), key.len(), value.as_ptr(), value.len(), ttl)
-        })
-    }
-
     /// Delete a key. `false` when it was not there.
     pub fn delete(&self, key: &[u8]) -> Result<bool> {
         // SAFETY: live handle; key readable.

@@ -181,14 +181,6 @@ extern "C" {
         value: *const u8,
         value_len: usize,
     ) -> i32;
-    pub fn thunderstrike_set_ttl(
-        client: *mut thunderstrike_client,
-        key: *const u8,
-        key_len: usize,
-        value: *const u8,
-        value_len: usize,
-        ttl_ms: u32,
-    ) -> i32;
     pub fn thunderstrike_delete(client: *mut thunderstrike_client, key: *const u8, key_len: usize) -> i32;
     pub fn thunderstrike_exists(client: *mut thunderstrike_client, key: *const u8, key_len: usize) -> i32;
     pub fn thunderstrike_append(

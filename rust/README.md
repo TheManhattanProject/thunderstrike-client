@@ -52,8 +52,8 @@ requires client certificates (mTLS), add `.client_identity(cert_pem, key_pem)`.
 
 Keys and values are byte slices. A key is at most 65,535 bytes
 (`thunderstrike::MAX_KEY_LEN`); an empty value is refused
-(`code::MALFORMED`). Keys do not expire: the server does not support
-expiry, and refuses `set_ttl` with a non-zero TTL as malformed.
+(`code::MALFORMED`).
+Keys do not expire: a value stays until it is deleted or overwritten.
 
 ```rust
 db.set(b"k", b"v")?;

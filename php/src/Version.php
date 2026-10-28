@@ -11,7 +11,7 @@ namespace Thunderstrike;
  */
 final class Version
 {
-    public const VERSION = '0.1.1';
+    public const VERSION = '0.1.2';
 
     public const DOWNLOAD_BASE = 'https://github.com/TheManhattanProject/thunderstrike-client/releases/download';
 

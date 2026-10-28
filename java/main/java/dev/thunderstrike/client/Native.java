@@ -323,9 +323,9 @@ final class Native {
     static final MethodHandle GET_INTO = handle(
             "thunderstrike_get_into",
             FunctionDescriptor.of(C_INT, C_POINTER, C_POINTER, C_SIZE_T, C_POINTER, C_SIZE_T, C_POINTER));
-    static final MethodHandle SET_TTL = handle(
-            "thunderstrike_set_ttl",
-            FunctionDescriptor.of(C_INT, C_POINTER, C_POINTER, C_SIZE_T, C_POINTER, C_SIZE_T, C_INT));
+    static final MethodHandle SET = handle(
+            "thunderstrike_set",
+            FunctionDescriptor.of(C_INT, C_POINTER, C_POINTER, C_SIZE_T, C_POINTER, C_SIZE_T));
     static final MethodHandle DELETE =
             handle("thunderstrike_delete", FunctionDescriptor.of(C_INT, C_POINTER, C_POINTER, C_SIZE_T));
     static final MethodHandle EXISTS =

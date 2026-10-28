@@ -8,7 +8,6 @@
 //! Without THUNDERSTRIKE_CA it speaks plaintext, which only a local stand-in
 //! server answers; the thunderstrike server is TLS 1.3 only.
 
-use std::time::Duration;
 use thunderstrike::{Client, Config};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -30,7 +29,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let v = db.get(b"example:greeting")?.unwrap_or_default();
     println!("get -> {:?} ({total} bytes)", String::from_utf8_lossy(&v));
 
-    db.set_ttl(b"example:session", b"token", Duration::from_secs(60))?;
+    db.set(b"example:session", b"token")?;
     println!("exists -> {}", db.exists(b"example:session")?);
 
     // Batches: n keys, one round trip.

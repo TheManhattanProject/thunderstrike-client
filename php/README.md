@@ -68,9 +68,8 @@ requires client certificates (mTLS), add `->clientIdentity($certPem, $keyPem)`.
 ## Operations
 
 Keys and values are PHP strings, binary-safe. A key is at most 65,535
-bytes; an empty value is refused. Keys do not expire: the server does
-not support expiry, and refuses a `set` with a non-zero `$ttlMs` as
-malformed.
+bytes; an empty value is refused.
+Keys do not expire: a value stays until it is deleted or overwritten.
 
 ```php
 $db->set('k', 'v');
