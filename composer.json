@@ -1,0 +1,22 @@
+{
+  "name": "themanhattanproject/thunderstrike-client",
+  "description": "Client for the thunderstrike key-value database",
+  "type": "library",
+  "license": "proprietary",
+  "keywords": ["thunderstrike", "key-value", "database", "client", "ffi"],
+  "homepage": "https://github.com/TheManhattanProject/thunderstrike-client",
+  "require": {
+    "php": ">=8.1",
+    "ext-ffi": "*"
+  },
+  "suggest": {
+    "ext-zlib": "bin/thunderstrike-install unpacks the native bundle with it",
+    "ext-curl": "bin/thunderstrike-install downloads with it when present"
+  },
+  "autoload": {
+    "psr-4": {
+      "Thunderstrike\\": "php/src/"
+    }
+  },
+  "bin": ["php/bin/thunderstrike-install"]
+}

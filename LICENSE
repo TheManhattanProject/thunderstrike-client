@@ -1,0 +1,254 @@
+THUNDERSTRIKE CLIENT LIBRARY LICENSE AGREEMENT
+
+Version 1.0, 28 October 2026
+
+Copyright (c) 2026 SHORTSQUEEZE PRIVATE LIMITED. All rights reserved.
+
+This Client Library License Agreement (the "Agreement") is a legal
+agreement between you and SHORTSQUEEZE PRIVATE LIMITED (the "Licensor",
+"we", "us") for the thunderstrike client libraries. BY DOWNLOADING,
+INSTALLING, COPYING, ACCESSING OR USING THE SOFTWARE, YOU AGREE TO BE BOUND
+BY THIS AGREEMENT. If you do not agree, do not download, install or use the
+Software. If you accept this Agreement on behalf of a company or other
+organization, you represent that you have the authority to bind it, and
+"you" means that organization.
+
+The thunderstrike client libraries are proprietary software. They are
+provided free of charge under this Agreement. They are not open-source
+software, and no open-source license applies to them.
+
+1. DEFINITIONS
+
+1.1 "Software" means the thunderstrike client libraries published by the
+    Licensor in any form, including the compiled native libraries, the
+    language adapters and packages that accompany them (for Go, Rust,
+    Python, Node.js, .NET, Java, PHP, C and C++), their header files, the
+    documentation, and any update, upgrade or new version of any of them
+    that the Licensor makes available.
+
+1.2 "Compiled Libraries" means the parts of the Software distributed only
+    in object-code form, such as static and shared libraries and native
+    addons.
+
+1.3 "Adapters" means the parts of the Software distributed in source form
+    in a programming language other than that of the Compiled Libraries,
+    which call the Compiled Libraries.
+
+1.4 "Your Application" means a software application or service that you
+    develop, which uses the Software to communicate with a thunderstrike
+    server, and which adds substantial functionality of its own beyond the
+    Software.
+
+1.5 "Third-Party Components" means software owned by third parties that is
+    included in the Software and licensed under its own terms, as listed in
+    the notices described in Section 7.
+
+2. LICENSE GRANT
+
+2.1 Subject to your compliance with this Agreement, the Licensor grants you
+    a free of charge, non-exclusive, non-transferable, non-sublicensable,
+    worldwide, revocable license to download, install and use the Software
+    to develop, build, test and run Your Application, for any lawful
+    purpose, including commercial and production use.
+
+2.2 You may incorporate the Software into Your Application, by linking it
+    statically or dynamically or by including it as a dependency, and you
+    may distribute the Software in object-code form solely as an integrated
+    part of Your Application, to your own users, provided that:
+
+    (a) you distribute it under terms at least as protective of the
+        Licensor's rights as this Agreement, and those terms prohibit
+        reverse engineering of the Software to the extent permitted by
+        law;
+    (b) you keep all copyright, license and other notices of the Software
+        that it carries, and you include this Agreement or a reference to
+        it, and the notices described in Section 7, with Your Application;
+        and
+    (c) you do not distribute the Software on its own, or as part of a
+        product whose primary purpose is to provide the Software or its
+        functionality, such as a client library, SDK or package for
+        thunderstrike.
+
+2.3 You may modify the Adapters for use with Your Application. A modified
+    Adapter remains Software under this Agreement, and Section 2.2 applies
+    to its distribution.
+
+2.4 You may make the copies of the Software reasonably necessary to
+    exercise the licenses above, such as copies in your own build systems,
+    package mirrors, caches and container images, and backup copies. Each
+    copy must keep all copyright, license and other notices of the
+    Software.
+
+3. RESTRICTIONS
+
+Except as this Agreement expressly permits or applicable law expressly
+allows despite this restriction, you will not, and will not permit or help
+any third party to:
+
+(a) copy, modify, adapt, translate or create derivative works of the
+    Compiled Libraries;
+(b) reverse engineer, decompile, disassemble or otherwise attempt to derive
+    the source code, algorithms, file formats or protocols of the Compiled
+    Libraries;
+(c) sell, resell, rent, lease, lend, sublicense, distribute, publish or
+    otherwise make the Software available to any third party, except as
+    Your Application under Section 2.2, including by republishing it or
+    any package containing it in a public package registry or repository;
+(d) use the Software to build a competing client library, SDK or driver
+    for thunderstrike, or a product that offers the Software's own
+    functionality to third parties as a hosted service;
+(e) remove, alter or obscure any copyright, trademark, license or other
+    notice in the Software;
+(f) circumvent or disable any technical limitation or security mechanism
+    of the Software; or
+(g) use the Software in breach of any applicable law or regulation.
+
+4. OWNERSHIP AND RESERVATION OF RIGHTS
+
+4.1 The Software is licensed, not sold. The Licensor and its licensors own
+    and retain all right, title and interest, including all intellectual
+    property rights, in and to the Software and every copy of it.
+
+4.2 No source code of the Compiled Libraries is licensed to you. All rights
+    not expressly granted in this Agreement are reserved by the Licensor,
+    and no right or license is granted by implication, estoppel or
+    otherwise.
+
+4.3 This Agreement grants no right to use the name "thunderstrike", or any
+    other name, trademark, service mark or logo of the Licensor, except to
+    identify the Software accurately, including to state that Your
+    Application works with thunderstrike.
+
+5. FEEDBACK
+
+If you give the Licensor suggestions, comments or other feedback about the
+Software, the Licensor may use it for any purpose without restriction or
+obligation to you.
+
+6. UPDATES AND SUPPORT
+
+6.1 The Licensor may, but is not obliged to, make updates or new versions
+    of the Software available. Each version of the Software is governed by
+    the license agreement that accompanies it.
+
+6.2 The Licensor has no obligation under this Agreement to provide support,
+    maintenance or any other service for the Software.
+
+7. THIRD-PARTY COMPONENTS
+
+The Compiled Libraries include Third-Party Components. Their copyright
+notices and license terms are in the file THIRD_PARTY_NOTICES that
+accompanies the Software. Each Third-Party Component is licensed under its
+own terms, and nothing in this Agreement limits any right you have under
+those terms.
+
+8. YOUR DATA AND RESPONSIBILITIES
+
+The Software runs in Your Application, on infrastructure that you control.
+You are solely responsible for your data, for the credentials and
+certificates you configure the Software with, and for the security and
+configuration of Your Application and your deployment.
+
+9. DISCLAIMER OF WARRANTIES
+
+THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND
+WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY
+APPLICABLE LAW, THE LICENSOR DISCLAIMS ALL WARRANTIES AND CONDITIONS,
+EXPRESS, IMPLIED OR STATUTORY, INCLUDING ANY WARRANTY OR CONDITION OF
+MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A PARTICULAR PURPOSE,
+TITLE AND NON-INFRINGEMENT, AND ANY WARRANTY THAT THE SOFTWARE WILL BE
+UNINTERRUPTED, ERROR-FREE OR SECURE, OR THAT IT WILL NOT LOSE OR CORRUPT
+DATA.
+
+10. LIMITATION OF LIABILITY
+
+10.1 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL THE
+     LICENSOR OR ITS LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL,
+     SPECIAL, CONSEQUENTIAL, EXEMPLARY OR PUNITIVE DAMAGES, OR FOR ANY LOSS
+     OF PROFITS, REVENUE, BUSINESS, GOODWILL OR ANTICIPATED SAVINGS, OR ANY
+     LOSS OR CORRUPTION OF DATA, OR ANY BUSINESS INTERRUPTION, ARISING OUT
+     OF OR IN CONNECTION WITH THE SOFTWARE OR THIS AGREEMENT, HOWEVER
+     CAUSED AND UNDER ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, TORT
+     (INCLUDING NEGLIGENCE) OR OTHERWISE, EVEN IF ADVISED OF THE
+     POSSIBILITY OF SUCH DAMAGES.
+
+10.2 TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSOR'S
+     TOTAL AGGREGATE LIABILITY ARISING OUT OF OR IN CONNECTION WITH THE
+     SOFTWARE OR THIS AGREEMENT WILL NOT EXCEED THE AMOUNT YOU PAID TO THE
+     LICENSOR FOR THE SOFTWARE. WHERE THE SOFTWARE IS PROVIDED TO YOU FREE
+     OF CHARGE, THAT AMOUNT IS NIL.
+
+10.3 Nothing in this Agreement excludes or limits any liability that cannot
+     be excluded or limited under applicable law.
+
+11. INDEMNITY
+
+You will defend, indemnify and hold harmless the Licensor and its
+directors, officers, employees and agents from and against any claim,
+loss, damage, liability, cost or expense (including reasonable legal fees)
+arising out of or in connection with your use or distribution of the
+Software, Your Application, or your breach of this Agreement.
+
+12. TERM AND TERMINATION
+
+12.1 This Agreement takes effect when you first download, install, access
+     or use the Software, and continues until terminated.
+
+12.2 This Agreement and your license terminate automatically, without
+     notice, if you breach any of its terms. The Licensor may also
+     terminate this Agreement at any time by notice to you.
+
+12.3 On termination you must stop using the Software, stop distributing
+     Your Application with the Software, and delete or destroy every copy
+     of the Software in your possession or control. Licenses that your
+     users received under Section 2.2(a) before termination are not
+     affected by it.
+
+12.4 Sections 1, 3, 4, 5 and 7 to 15 survive termination.
+
+13. EXPORT CONTROL AND SANCTIONS
+
+You will comply with all export control, import and sanctions laws and
+regulations that apply to your download, use, distribution or transfer of
+the Software, and you will not download, use, distribute or transfer the
+Software in breach of them.
+
+14. GOVERNING LAW AND JURISDICTION
+
+14.1 This Agreement, and any dispute or claim arising out of or in
+     connection with it or the Software, is governed by and construed in
+     accordance with the laws of India, without regard to its conflict of
+     laws principles.
+
+14.2 The courts at Bhopal, Madhya Pradesh, India have exclusive
+     jurisdiction over any such dispute or claim, and you submit to the
+     jurisdiction of those courts. The Licensor may nonetheless seek
+     injunctive or other equitable relief to protect its intellectual
+     property rights in any court of competent jurisdiction.
+
+15. GENERAL
+
+15.1 Entire agreement. This Agreement is the entire agreement between you
+     and the Licensor about the Software and supersedes all prior
+     understandings about it, unless you and the Licensor have signed a
+     separate written agreement that covers the Software, which then
+     prevails.
+
+15.2 Severability. If any provision of this Agreement is held invalid or
+     unenforceable, it will be enforced to the maximum extent permissible,
+     and the remaining provisions remain in full force and effect.
+
+15.3 No waiver. A failure or delay by the Licensor in exercising any right
+     under this Agreement is not a waiver of that right.
+
+15.4 Assignment. You may not assign or transfer this Agreement or any right
+     under it without the Licensor's prior written consent. The Licensor
+     may assign or transfer this Agreement.
+
+15.5 Notices. Notices to the Licensor must be in writing and delivered to
+     its registered office. The Licensor may give notices to you through
+     the Software, its documentation, or the place from which you obtained
+     the Software.
+
+15.6 Language. This Agreement is made in English, and the English version
+     prevails over any translation.

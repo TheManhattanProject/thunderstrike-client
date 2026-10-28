@@ -1,0 +1,194 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * Fetch the thunderstrike native library for this platform.
+ *
+ *   vendor/bin/thunderstrike-install [--rid RID] [--force]
+ *
+ * Downloads thunderstrike-native-<version>-<rid>.tar.gz from the GitHub
+ * release matching this package's version, checks it against the
+ * release's SHA256SUMS, and puts the shared library in lib/<rid>/,
+ * where Lib looks for it. The library is not in git (it is a compiled
+ * artifact per platform), so this runs once per install.
+ *
+ * THUNDERSTRIKE_DOWNLOAD_BASE replaces the release URL prefix (mirrors,
+ * tests): files are read from <base>/v<version>/<asset>.
+ */
+
+require dirname(__DIR__) . '/src/Lib.php';
+require dirname(__DIR__) . '/src/Version.php';
+
+use Thunderstrike\Lib;
+use Thunderstrike\Version;
+
+function fail(string $message): never
+{
+    fwrite(STDERR, "thunderstrike-install: {$message}\n");
+    exit(1);
+}
+
+function fetch(string $url): string
+{
+    // curl when present: it follows GitHub's redirect to the asset host
+    // and reports HTTP errors as errors. Streams otherwise.
+    if (extension_loaded('curl') && !str_starts_with($url, 'file://')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_FAILONERROR => true,
+            CURLOPT_CONNECTTIMEOUT => 30,
+            CURLOPT_USERAGENT => 'thunderstrike-install',
+        ]);
+        $body = curl_exec($ch);
+        if (!is_string($body)) {
+            fail("download failed: {$url}: " . curl_error($ch));
+        }
+
+        return $body;
+    }
+    $ctx = stream_context_create(['http' => [
+        'follow_location' => 1,
+        'user_agent' => 'thunderstrike-install',
+        'timeout' => 60,
+    ]]);
+    $body = @file_get_contents($url, false, $ctx);
+    if (!is_string($body)) {
+        fail("download failed: {$url}: " . (error_get_last()['message'] ?? 'unknown error'));
+    }
+
+    return $body;
+}
+
+/** The body of $want in an uncompressed tar, or null. ustar, GNU and pax names. */
+function tar_entry(string $tar, string $want): ?string
+{
+    $off = 0;
+    $len = strlen($tar);
+    $longName = null;
+    while ($off + 512 <= $len) {
+        $h = substr($tar, $off, 512);
+        if (trim($h, "\0") === '') {
+            break;
+        }
+        $name = rtrim(substr($h, 0, 100), "\0");
+        $size = octdec(trim(substr($h, 124, 12), "\0 "));
+        $type = $h[156];
+        if (substr($h, 257, 5) === 'ustar') {
+            $prefix = rtrim(substr($h, 345, 155), "\0");
+            if ($prefix !== '') {
+                $name = $prefix . '/' . $name;
+            }
+        }
+        $body = substr($tar, $off + 512, (int) $size);
+        $off += 512 + (int) (ceil($size / 512) * 512);
+
+        if ($type === 'L') {
+            $longName = rtrim($body, "\0");
+            continue;
+        }
+        if ($type === 'x') {
+            if (preg_match('/^\d+ path=(.*)$/m', $body, $m)) {
+                $longName = $m[1];
+            }
+            continue;
+        }
+        if ($longName !== null) {
+            $name = $longName;
+            $longName = null;
+        }
+        if (($type === '0' || $type === "\0") && preg_replace('#^\./#', '', $name) === $want) {
+            return $body;
+        }
+    }
+
+    return null;
+}
+
+$rid = null;
+$force = false;
+for ($i = 1; $i < $argc; $i++) {
+    switch ($argv[$i]) {
+        case '--rid':
+            $rid = $argv[++$i] ?? fail('--rid needs a value');
+            break;
+        case '--force':
+            $force = true;
+            break;
+        case '-h':
+        case '--help':
+            echo "usage: thunderstrike-install [--rid RID] [--force]\n";
+            exit(0);
+        default:
+            fail("unknown argument: {$argv[$i]}");
+    }
+}
+
+$rid ??= Lib::rid() ?? fail('no prebuilt library for ' . PHP_OS_FAMILY . ' ' . php_uname('m'));
+$name = match (true) {
+    str_starts_with($rid, 'win-') => 'thunderstrike_client.dll',
+    str_starts_with($rid, 'osx-') => 'libthunderstrike_client.dylib',
+    default => 'libthunderstrike_client.so',
+};
+if (str_ends_with($rid, '-musl')) {
+    fail("{$rid} has no shared library (musl builds are static only); PHP needs a glibc, macOS or Windows host");
+}
+
+$dir = Lib::libDir($rid);
+$dest = $dir . DIRECTORY_SEPARATOR . $name;
+if (is_file($dest) && !$force) {
+    echo "thunderstrike-install: {$dest} already present (--force to replace)\n";
+    exit(0);
+}
+
+$version = Version::VERSION;
+$base = rtrim(getenv('THUNDERSTRIKE_DOWNLOAD_BASE') ?: Version::DOWNLOAD_BASE, '/');
+$asset = "thunderstrike-native-{$version}-{$rid}.tar.gz";
+
+// The checksum file first: a bundle with no published sum is refused.
+$expected = null;
+foreach (preg_split('/\R/', fetch("{$base}/v{$version}/SHA256SUMS")) as $line) {
+    if (preg_match('/^([0-9a-fA-F]{64}) [ *]?(\S+)$/', trim($line), $m) && basename($m[2]) === $asset) {
+        $expected = strtolower($m[1]);
+        break;
+    }
+}
+if ($expected === null) {
+    fail("SHA256SUMS of v{$version} has no entry for {$asset}");
+}
+
+$tgz = fetch("{$base}/v{$version}/{$asset}");
+$actual = hash('sha256', $tgz);
+if (!hash_equals($expected, $actual)) {
+    fail("{$asset}: sha256 {$actual} does not match SHA256SUMS ({$expected})");
+}
+
+if (!function_exists('gzdecode')) {
+    fail('the zlib extension is needed to unpack the bundle');
+}
+$tar = gzdecode($tgz);
+if (!is_string($tar)) {
+    fail("{$asset} is not a gzip archive");
+}
+$lib = tar_entry($tar, "{$rid}/{$name}") ?? fail("{$asset} has no {$rid}/{$name}");
+
+// Write beside the target and rename: a half-written library must
+// never be what Lib finds.
+if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
+    fail("cannot create {$dir}");
+}
+$tmp = $dest . '.' . getmypid() . '.tmp';
+if (file_put_contents($tmp, $lib) !== strlen($lib)) {
+    @unlink($tmp);
+    fail("cannot write {$tmp}");
+}
+chmod($tmp, 0755);
+if (!rename($tmp, $dest)) {
+    @unlink($tmp);
+    fail("cannot move the library into {$dest}");
+}
+
+echo "thunderstrike-install: {$rid}/{$name} {$version} -> {$dest}\n";

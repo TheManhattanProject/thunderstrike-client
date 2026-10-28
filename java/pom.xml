@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>dev.thunderstrike</groupId>
+  <artifactId>thunderstrike-client</artifactId>
+  <!-- From the tag: scripts/package-java.sh passes -Drevision=X.Y.Z. -->
+  <version>${revision}</version>
+  <packaging>jar</packaging>
+
+  <name>thunderstrike-client</name>
+  <description>Client for the thunderstrike key-value database</description>
+
+  <properties>
+    <revision>0.0.0-SNAPSHOT</revision>
+    <!-- java.lang.foreign (Project Panama) is stable from 22. -->
+    <maven.compiler.release>22</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <resources>
+      <!-- The native libraries ride inside the jar, under
+           native/<os>-<arch>/, and Native.extractFromJar unpacks the
+           right one at load time. Populate src/main/resources/native
+           from scripts/package-java.sh before packaging. -->
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+  </build>
+
+  <!-- No dependencies. That is the point of Panama: the binding is
+       plain Java calling the C ABI, with no JNI glue and nothing to
+       pull in at runtime. -->
+</project>

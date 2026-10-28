@@ -1,0 +1,7 @@
+# sha256 of the native bundles for thunderstrike 0.1.0. build.rs refuses any other.
+e0d44c6ec42c4a4c8133b73054a93c84b620304726e50d1069e1f394bdd383fb  thunderstrike-native-0.1.0-linux-arm64-musl.tar.gz
+1662491b59fb465b9df5649eb578dd8d00170b8577287c27573feb60c7688293  thunderstrike-native-0.1.0-linux-arm64.tar.gz
+9459ccc3a977a6546caa4eab0a3ebcde92648a8aa8c9e4c2caf1a1c15f180f6e  thunderstrike-native-0.1.0-linux-x64-musl.tar.gz
+885d07ffcbd56995e67d48cafb224b5296609bdd7e1c93d4b61c69c10ffba216  thunderstrike-native-0.1.0-linux-x64.tar.gz
+1888d39d76f13b9ec60f2a20c0995f0d7507d21ee6c5080ccc245b7124662b14  thunderstrike-native-0.1.0-win-x64-gnu.tar.gz
+bd1aba05a3baa9860d44ab1900dbba11b63acd851956083991aca32e78e29933  thunderstrike-native-0.1.0-win-x64.tar.gz
