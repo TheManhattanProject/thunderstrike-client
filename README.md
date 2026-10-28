@@ -16,7 +16,7 @@ step on your machine, except Go's usual cgo.
 | Go | `go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.0` | this repo, `go/` |
 | Rust | `cargo add thunderstrike` | [crates.io](https://crates.io/crates/thunderstrike) |
 | Python | `pip install thunderstrike` | [PyPI](https://pypi.org/project/thunderstrike/) |
-| Node.js | `npm install thunderstrike` | [npm](https://www.npmjs.com/package/thunderstrike) |
+| Node.js | `npm install @shortsqueeze/thunderstrike` | [npm](https://www.npmjs.com/package/@shortsqueeze/thunderstrike) |
 | .NET | `dotnet add package Thunderstrike` | [NuGet](https://www.nuget.org/packages/Thunderstrike) |
 | Java | `thunderstrike-client-0.1.0.jar` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | JDK 22+ |
 | PHP | `composer require themanhattanproject/thunderstrike-client` then `vendor/bin/thunderstrike-install` | [Packagist](https://packagist.org/packages/themanhattanproject/thunderstrike-client) |
@@ -78,10 +78,10 @@ print(db.get(b"user:1"))   # b"ada", or None on a miss
 **Node.js**
 
 ```js
-const { connect } = require("thunderstrike");
+const { ThunderstrikeClient } = require("@shortsqueeze/thunderstrike");
 const fs = require("node:fs");
 
-const db = await connect({
+const db = await ThunderstrikeClient.connect({
   endpoints: ["127.0.0.1:7380"],
   tlsServerName: "localhost",
   tlsCaPem: fs.readFileSync("ca.crt"),

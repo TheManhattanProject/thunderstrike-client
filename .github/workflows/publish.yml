@@ -84,10 +84,10 @@ jobs:
       - name: Publish
         run: |
           npm install -g npm@latest
-          for t in assets/thunderstrike-*-*.tgz; do
+          for t in assets/shortsqueeze-thunderstrike-*-*.tgz; do
             npm publish "./$t" --access public --provenance
           done
-          npm publish ./assets/thunderstrike-[0-9]*.tgz --access public --provenance
+          npm publish ./assets/shortsqueeze-thunderstrike-[0-9]*.tgz --access public --provenance
 
   crates:
     needs: assets

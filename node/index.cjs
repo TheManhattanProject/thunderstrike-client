@@ -13,7 +13,7 @@ const local = `./thunderstrike.${platform}-${arch}.node`;
 //   * one small package per platform, pulled in by optionalDependencies
 //     (what a published release uses, so an install downloads ~1 MiB
 //     rather than every platform's binary)
-const candidates = [local, `thunderstrike-${platform}-${arch}`];
+const candidates = [local, `@shortsqueeze/thunderstrike-${platform}-${arch}`];
 
 let native;
 const tried = [];
@@ -30,7 +30,7 @@ if (!native) {
   throw new Error(
     `thunderstrike: no prebuilt binary for ${platform}-${arch}.\n` +
       `Tried:\n${tried.join('\n')}\n` +
-      `thunderstrike-${platform}-${arch} is an optional dependency: reinstall ` +
+      `@shortsqueeze/thunderstrike-${platform}-${arch} is an optional dependency: reinstall ` +
       `without --omit=optional (or --no-optional) if this platform is supported.`
   );
 }
