@@ -13,14 +13,14 @@ step on your machine, except Go's usual cgo.
 
 | Language | Install | Package |
 |---|---|---|
-| Go | `go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.0` | this repo, `go/` |
+| Go | `go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.1` | this repo, `go/` |
 | Rust | `cargo add thunderstrike` | [crates.io](https://crates.io/crates/thunderstrike) |
 | Python | `pip install thunderstrike` | [PyPI](https://pypi.org/project/thunderstrike/) |
 | Node.js | `npm install @shortsqueeze/thunderstrike` | [npm](https://www.npmjs.com/package/@shortsqueeze/thunderstrike) |
 | .NET | `dotnet add package Thunderstrike` | [NuGet](https://www.nuget.org/packages/Thunderstrike) |
-| Java | `thunderstrike-client-0.1.0.jar` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | JDK 22+ |
+| Java | `thunderstrike-client-0.1.1.jar` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | JDK 22+ |
 | PHP | `composer require themanhattanproject/thunderstrike-client` then `vendor/bin/thunderstrike-install` | [Packagist](https://packagist.org/packages/themanhattanproject/thunderstrike-client) |
-| C / C++ | `thunderstrike-native-0.1.0-<platform>.tar.gz` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | header + libraries |
+| C / C++ | `thunderstrike-native-0.1.1-<platform>.tar.gz` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | header + libraries |
 
 Platforms: Linux x86-64 and ARM64 (glibc 2.17 or newer; musl too for Go,
 Rust and C) and Windows x86-64. macOS (x86-64 and Apple silicon) follows in
@@ -78,13 +78,14 @@ print(db.get(b"user:1"))   # b"ada", or None on a miss
 **Node.js**
 
 ```js
-const { ThunderstrikeClient } = require("@shortsqueeze/thunderstrike");
-const fs = require("node:fs");
+// An ES module (top-level await); require() works too.
+import { ThunderstrikeClient } from "@shortsqueeze/thunderstrike";
+import { readFileSync } from "node:fs";
 
 const db = await ThunderstrikeClient.connect({
   endpoints: ["127.0.0.1:7380"],
   tlsServerName: "localhost",
-  tlsCaPem: fs.readFileSync("ca.crt"),
+  tlsCaPem: readFileSync("ca.crt"),
 });
 await db.set(Buffer.from("user:1"), Buffer.from("ada"));
 const v = await db.get(Buffer.from("user:1"));   // Buffer | null

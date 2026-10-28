@@ -1,14 +1,17 @@
 [package]
 name = "thunderstrike"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.80"
-description = "Client for the thunderstrike key-value database: pooled, pipelined, TLS 1.3"
+description = "Client for the thunderstrike key-value database: pooled, pipelined TLS 1.3 connections, batch operations and runtime-agnostic futures"
+authors = ["SHORTSQUEEZE PRIVATE LIMITED"]
+homepage = "https://github.com/TheManhattanProject/thunderstrike-client"
 repository = "https://github.com/TheManhattanProject/thunderstrike-client"
+documentation = "https://docs.rs/thunderstrike"
 license-file = "LICENSE"
 readme = "README.md"
-keywords = ["thunderstrike", "database", "key-value", "client"]
-categories = ["database", "api-bindings"]
+keywords = ["thunderstrike", "database", "key-value", "client", "kv"]
+categories = ["database", "api-bindings", "asynchronous"]
 links = "thunderstrike_client"
 build = "build.rs"
 # Exactly what ships: the bindings, the build script, the pinned checksums.

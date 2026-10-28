@@ -14,7 +14,15 @@
 
     <!-- No <Version>: scripts/package-nuget.sh passes -p:Version from the tag. -->
     <PackageId>Thunderstrike</PackageId>
-    <Description>Client for the thunderstrike key-value database.</Description>
+    <Description>.NET client for the thunderstrike key-value database: a pool of pipelined TLS 1.3 connections with blocking and Task-based APIs and batch operations. The compiled client library for linux-x64, linux-arm64 and win-x64 ships inside the package.</Description>
+    <PackageTags>thunderstrike;key-value;kv;database;client;tls</PackageTags>
+    <Authors>SHORTSQUEEZE PRIVATE LIMITED</Authors>
+    <Company>SHORTSQUEEZE PRIVATE LIMITED</Company>
+    <Product>thunderstrike</Product>
+    <Copyright>Copyright (c) 2026 SHORTSQUEEZE PRIVATE LIMITED</Copyright>
+    <PackageProjectUrl>https://github.com/TheManhattanProject/thunderstrike-client</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TheManhattanProject/thunderstrike-client</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <RootNamespace>Thunderstrike</RootNamespace>
   </PropertyGroup>
 
@@ -25,10 +33,13 @@
        publish copies it next to the app. -->
   <PropertyGroup Condition="'$(ThunderstrikeNativeDir)' != ''">
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup Condition="'$(ThunderstrikeNativeDir)' != ''">
     <None Include="$(ThunderstrikeNativeDir)/**/*" Pack="true" PackagePath="runtimes/" />
     <None Include="$(ThunderstrikeLicenseFile)" Pack="true" PackagePath="\" />
+    <!-- The registry page: public/readme/dotnet.md, staged as README.md. -->
+    <None Include="$(ThunderstrikeReadmeFile)" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>

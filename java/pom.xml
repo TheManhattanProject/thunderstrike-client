@@ -12,7 +12,31 @@
   <packaging>jar</packaging>
 
   <name>thunderstrike-client</name>
-  <description>Client for the thunderstrike key-value database</description>
+  <description>Java client for the thunderstrike key-value database: pooled, pipelined TLS 1.3 connections with blocking and CompletableFuture APIs, over the Foreign Function and Memory API (JDK 22+). The compiled client library ships inside the jar.</description>
+  <url>https://github.com/TheManhattanProject/thunderstrike-client</url>
+
+  <licenses>
+    <license>
+      <name>thunderstrike client license (proprietary, free to use)</name>
+      <url>https://github.com/TheManhattanProject/thunderstrike-client/blob/main/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <organization>
+    <name>SHORTSQUEEZE PRIVATE LIMITED</name>
+    <url>https://github.com/TheManhattanProject</url>
+  </organization>
+
+  <scm>
+    <url>https://github.com/TheManhattanProject/thunderstrike-client</url>
+    <connection>scm:git:https://github.com/TheManhattanProject/thunderstrike-client.git</connection>
+  </scm>
+
+  <issueManagement>
+    <system>GitHub</system>
+    <url>https://github.com/TheManhattanProject/thunderstrike-client/issues</url>
+  </issueManagement>
 
   <properties>
     <revision>0.0.0-SNAPSHOT</revision>
