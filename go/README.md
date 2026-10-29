@@ -10,7 +10,7 @@ At run time there is nothing to install: ship the one file.
 ## Install
 
 ```sh
-go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.2
+go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.3
 ```
 
 ```go

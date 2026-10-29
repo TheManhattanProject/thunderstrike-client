@@ -13,18 +13,17 @@ step on your machine, except Go's usual cgo.
 
 | Language | Install | Package |
 |---|---|---|
-| Go | `go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.2` | this repo, `go/` |
+| Go | `go get github.com/TheManhattanProject/thunderstrike-client/go@v0.1.3` | this repo, `go/` |
 | Rust | `cargo add thunderstrike` | [crates.io](https://crates.io/crates/thunderstrike) |
 | Python | `pip install thunderstrike` | [PyPI](https://pypi.org/project/thunderstrike/) |
 | Node.js | `npm install @shortsqueeze/thunderstrike` | [npm](https://www.npmjs.com/package/@shortsqueeze/thunderstrike) |
 | .NET | `dotnet add package Thunderstrike` | [NuGet](https://www.nuget.org/packages/Thunderstrike) |
-| Java | `io.github.maverick-ai:thunderstrike-client:0.1.2` | [Maven Central](https://central.sonatype.com/artifact/io.github.maverick-ai/thunderstrike-client), JDK 22+ |
+| Java | `io.github.maverick-ai:thunderstrike-client:0.1.3` | [Maven Central](https://central.sonatype.com/artifact/io.github.maverick-ai/thunderstrike-client), JDK 22+ |
 | PHP | `composer require themanhattanproject/thunderstrike-client` then `vendor/bin/thunderstrike-install` | [Packagist](https://packagist.org/packages/themanhattanproject/thunderstrike-client) |
-| C / C++ | `thunderstrike-native-0.1.2-<platform>.tar.gz` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | header + libraries |
+| C / C++ | `thunderstrike-native-0.1.3-<platform>.tar.gz` from the [release](https://github.com/TheManhattanProject/thunderstrike-client/releases) | header + libraries |
 
 Platforms: Linux x86-64 and ARM64 (glibc 2.17 or newer; musl too for Go,
-Rust and C) and Windows x86-64. macOS (x86-64 and Apple silicon) follows in
-the next release.
+Rust and C), Windows x86-64, and macOS on Intel x86-64 and Apple silicon.
 
 ## Connect
 

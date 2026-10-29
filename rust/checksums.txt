@@ -1,7 +1,9 @@
-# sha256 of the native bundles for thunderstrike 0.1.2. build.rs refuses any other.
-791a2a2a70e8fc39632163da7121abe98164b8d93dc7d7c79ad05ccc67a0df76  thunderstrike-native-0.1.2-linux-arm64-musl.tar.gz
-4bd1cdaf615bf53908ed5263dcea2ee8099c06e406db1ab37bc33cca49f446bd  thunderstrike-native-0.1.2-linux-arm64.tar.gz
-8b708ef89cc694ff6aefe586c887b5049047169ac2fe3c84e7977adf228457fc  thunderstrike-native-0.1.2-linux-x64-musl.tar.gz
-828cc889b492370ff27f3523e9dffabba10f4df371fc048dabde278305f3a888  thunderstrike-native-0.1.2-linux-x64.tar.gz
-e617cc8de4f29c17006e68de3ab555c64308b5a51ecd1870e98e64e5e55eb6cd  thunderstrike-native-0.1.2-win-x64-gnu.tar.gz
-69b062853a1c37c6bad8cce6697cc4cf8f1756346173a2e5836b70f8452801cd  thunderstrike-native-0.1.2-win-x64.tar.gz
+# sha256 of the native bundles for thunderstrike 0.1.3. build.rs refuses any other.
+bd30a79c65933fc6444e8debe5985b8b98e37285683e5439a1e83dccf48e50d8  thunderstrike-native-0.1.3-linux-arm64-musl.tar.gz
+10a0bd81ff1281175d349de4fb979711c7944a5c8f25a0b46aeaaa4035821c96  thunderstrike-native-0.1.3-linux-arm64.tar.gz
+3e043bdaa1f82353ea43255d9dd8dcd55a91301e8f11149bdfbb84a3d1edfbf2  thunderstrike-native-0.1.3-linux-x64-musl.tar.gz
+d5bf2a4c168d75e734ee6fc145221110a3c9a70b525ec4554d21134b200f74bf  thunderstrike-native-0.1.3-linux-x64.tar.gz
+5940bfd1b67da53daad0b7361164cf5b4f54704404b6d58372148690b65422e0  thunderstrike-native-0.1.3-osx-arm64.tar.gz
+2089f4a1b1484d5ab9c1202eefbfdcd08504bf987109e0706897749f284ca8ee  thunderstrike-native-0.1.3-osx-x64.tar.gz
+ca4a95eb03aa3ed0e65d57c157a53688334efea4ff3f07ac6579fbcbec76d7c7  thunderstrike-native-0.1.3-win-x64-gnu.tar.gz
+e0ec6c997349ce95507a35e53c304baf87524ef4ed2419ada4897cfcf237575d  thunderstrike-native-0.1.3-win-x64.tar.gz
