@@ -32,8 +32,17 @@ env:
 jobs:
   assets:
     name: fetch and verify the release assets
+    outputs:
+      prerelease: ${{ steps.release.outputs.prerelease }}
     runs-on: ubuntu-latest
     steps:
+      - name: Read the release type
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          prerelease=$(gh release view "$TAG" -R "$GITHUB_REPOSITORY" --json isPrerelease --jq .isPrerelease)
+          echo "prerelease=$prerelease" >> "$GITHUB_OUTPUT"
       - name: Download
         env:
           GH_TOKEN: ${{ github.token }}
@@ -49,6 +58,7 @@ jobs:
 
   pypi:
     needs: assets
+    if: needs.assets.outputs.prerelease == 'false' || contains(github.event.release.tag_name || inputs.tag, '-linux-windows.')
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -58,13 +68,41 @@ jobs:
         with:
           name: assets
           path: assets
-      - run: mkdir dist && cp assets/*.whl dist/
+      - name: Select wheels that PyPI has yet to receive
+        id: wheels
+        shell: python
+        run: |
+          import hashlib
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+          from urllib.request import urlopen
+
+          wheels = sorted(Path("assets").glob("*.whl"))
+          if not wheels:
+              raise SystemExit("No wheels attached to this release")
+          with urlopen("https://pypi.org/pypi/thunderstrike/json", timeout=30) as response:
+              releases = json.load(response)["releases"]
+          dest = Path("dist")
+          dest.mkdir()
+          for wheel in wheels:
+              version = wheel.name.split("-")[1]
+              existing = {f["filename"]: f["digests"]["sha256"] for f in releases.get(version, [])}
+              if wheel.name not in existing:
+                  shutil.copyfile(wheel, dest / wheel.name)
+              elif hashlib.sha256(wheel.read_bytes()).hexdigest() != existing[wheel.name]:
+                  raise SystemExit(f"{wheel.name} differs from the published wheel")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              print(f"pending={str(any(dest.iterdir())).lower()}", file=output)
       - uses: pypa/gh-action-pypi-publish@release/v1
+        if: steps.wheels.outputs.pending == 'true'
         with:
           packages-dir: dist/
 
   npm:
     needs: assets
+    if: needs.assets.outputs.prerelease == 'false'
     runs-on: ubuntu-latest
     environment: npm
     permissions:
@@ -91,6 +129,7 @@ jobs:
 
   crates:
     needs: assets
+    if: needs.assets.outputs.prerelease == 'false'
     runs-on: ubuntu-latest
     environment: crates
     permissions:
@@ -113,6 +152,7 @@ jobs:
 
   nuget:
     needs: assets
+    if: needs.assets.outputs.prerelease == 'false'
     runs-on: ubuntu-latest
     environment: nuget
     permissions:
